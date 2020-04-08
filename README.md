@@ -21,7 +21,7 @@ Console.WriteLine($"Normal format: {time.ToString()}");
 Console.WriteLine($"Format string: {time.ToString("yyyy-MM-dd hh-mm-ss")}");
 ```
 
-### 02.获取调用者的文件名、方法名和代码所在行<br>Get [CallerMemberName]/[CallerFilePath]/[CallerLineNumber]
+## 02.获取调用者的文件名、方法名和代码所在行<br>Get [CallerMemberName]/[CallerFilePath]/[CallerLineNumber]
 ### KeyPoints
 - Using
 ```c#
@@ -36,4 +36,24 @@ public virtual bool WriteLine(
       [CallerMemberName] string origin = null,
       [CallerFilePath] string callerFile = null,
       [CallerLineNumber] int codeLine = 0)
+```
+## 03.任务列表、精简文件名<br>ToDO List & Trimmed File Name
+### KeyPoint
+- ToDo List（任务列表）
+```c#
+// TODO 你要做的任务
+```
+
+![03.To Do List](Figures/03.ToDoList.png)
+
+- 精简文件名
+```c#
+Path.GetFileName(fullLongLongPath);
+```
+- 指定长度输出，不足补空格
+```c#
+// 注意: 可以PadRight,补在右侧
+//      那个3代表你的字符串要占的长度，设置5等的也是可以的
+//      ‘ ’ 中间是一个空格，代表站位符，你可以用别的符号
+sth.ToString().PadLeft(3, ' ');
 ```
