@@ -11,7 +11,9 @@ namespace LoongLogger
 	| https://github.com/loongEgg/LoongLog
 	*/
     public class ConsoleLogger
-    {
+    { 
+        // TODO: 04-A 过期代码警告
+        [Obsolete("这是一个演示方法，不要乱用", false)]
         // TODO: 02 获取调用方法名、调用文件名和调用代码所在行
         public bool WriteLine(
             [CallerMemberName] string callerName = null,
@@ -22,7 +24,7 @@ namespace LoongLogger
             Console.WriteLine(sth);
 
             // TODO: 03 任务列表、精简文件名、指定长度输出不足补空格
-            string msg = $"{Path.GetFileName(path)} > {callerName}() > in code line (" + line.ToString().PadLeft(3, ' ') + ")";
+            string msg = $"{Path.GetFileName(path)} > {callerName}() > in line [" + line.ToString().PadLeft(3, ' ') + "]";
             Console.WriteLine(msg);
             return true;
         }

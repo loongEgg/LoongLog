@@ -57,3 +57,14 @@ Path.GetFileName(fullLongLongPath);
 //      ‘ ’ 中间是一个空格，代表站位符，你可以用别的符号
 sth.ToString().PadLeft(3, ' ');
 ```
+
+## 04.过期代码警告与禁用CS0618<br>[Obsolete] & pragma warning disable 618
+### KeyPoint
+- **[Obsolete]** 受到这个Attribute标注的方法会引发CS0618,注意可以定义为警告或者错误
+
+- 禁用CS0618警告
+```c#
+#pragma warning disable 618
+            logger.WriteLine();
+#pragma warning restore 618
+```

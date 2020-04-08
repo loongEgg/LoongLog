@@ -8,13 +8,12 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
-            // 02.
-            ConsoleLogger logger = new ConsoleLogger();
-            logger.WriteLine();
+            // 02. 03
+            ConsoleLoggetTest();
 
             // 01.
             // ColorfullConsoleAndTimeFormat();
-             
+
             Console.ReadKey();// 暂停的一种方法
         }
 
@@ -52,5 +51,16 @@ namespace LoongLog
             Console.WriteLine($"Format string: {time.ToString("yyyy-MM-dd hh-mm-ss")}");
         }
 
+        /// <summary>
+        ///  03. 02. 代码
+        /// </summary>
+        static void ConsoleLoggetTest() {
+            ConsoleLogger logger = new ConsoleLogger();
+            // TODO: 04-B 过期代码CS0618警告的禁用
+#pragma warning disable 0618
+            logger.WriteLine();
+#pragma warning restore 0618
+            logger.WriteLine();
+        }
     }
 }
