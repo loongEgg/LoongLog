@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1022
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoongLog", "LoongLog\LoongLog.csproj", "{76618E89-2C3F-47B6-AADA-12B96624A6CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoongLogger", "LoongLogger\LoongLogger.csproj", "{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{76618E89-2C3F-47B6-AADA-12B96624A6CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76618E89-2C3F-47B6-AADA-12B96624A6CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76618E89-2C3F-47B6-AADA-12B96624A6CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

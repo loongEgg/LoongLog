@@ -1,13 +1,19 @@
-﻿using System;
+﻿using LoongLogger;
+using System;
 
 namespace LoongLog
 {
     class Program
     {
-         
+        // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
-            ColorfullConsoleAndTimeFormat();
+            // 02.
+            ConsoleLogger logger = new ConsoleLogger();
+            logger.WriteLine();
+
+            // 01.
+            // ColorfullConsoleAndTimeFormat();
              
             Console.ReadKey();// 暂停的一种方法
         }
