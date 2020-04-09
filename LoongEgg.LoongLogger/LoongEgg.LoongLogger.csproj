@@ -7,8 +7,8 @@
     <ProjectGuid>{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LoongLogger</RootNamespace>
-    <AssemblyName>LoongLogger</AssemblyName>
+    <RootNamespace>LoongEgg.LoongLogger</RootNamespace>
+    <AssemblyName>LoongEgg.LoongLogger</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

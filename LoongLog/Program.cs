@@ -1,5 +1,6 @@
-﻿using LoongLogger;
+﻿using LoongEgg.LoongLogger;
 using System;
+using System.Diagnostics;
 
 namespace LoongLog
 {
@@ -7,6 +8,9 @@ namespace LoongLog
     {
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
+
+            // 05.
+            
 
             // 02. 03
             ConsoleLoggetTest();
@@ -61,6 +65,16 @@ namespace LoongLog
             logger.WriteLine();
 #pragma warning restore 0618
             logger.WriteLine();
+        }
+
+        /// <summary>
+        /// TODO: 05 彩色的Debug输出
+        /// </summary>
+        static void DebugOutput() {
+            Debug.WriteLine(" Debug ");
+            Debug.WriteLine(" Error ");
+            Debug.WriteLine(" Fatal ");
+            Debug.WriteLine(" Info ");
         }
     }
 }

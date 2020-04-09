@@ -49,9 +49,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\LoongLogger\LoongLogger.csproj">
+    <ProjectReference Include="..\LoongEgg.LoongLogger\LoongEgg.LoongLogger.csproj">
       <Project>{03eb036e-b9a2-4331-9de0-67cf81c7ea5a}</Project>
-      <Name>LoongLogger</Name>
+      <Name>LoongEgg.LoongLogger</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

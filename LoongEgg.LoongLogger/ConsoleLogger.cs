@@ -2,10 +2,9 @@
 using System.IO;
 using System.Runtime.CompilerServices;
 
-namespace LoongLogger
+namespace LoongEgg.LoongLogger
 {
-    /*
-	| 
+    /* 
 	| WeChat: InnerGeek
 	| LoongEgg@163.com 
 	| https://github.com/loongEgg/LoongLog

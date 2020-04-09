@@ -4,7 +4,7 @@ A log for c#/WPF with colorful output/console and file recorder.
 你可以在提交历史中看到每一步的实现.  
 You can learn every step in  history commit.
 ## 01.控制台的彩色输出和时间格式化<br>Colorfull Console And Time Format
-### KeyPoints
+
 - Colorfull Console
 ```c#
 // 输出一次蓝色
@@ -38,7 +38,6 @@ public virtual bool WriteLine(
       [CallerLineNumber] int codeLine = 0)
 ```
 ## 03.任务列表、精简文件名<br>ToDO List & Trimmed File Name
-### KeyPoint
 - ToDo List（任务列表）
 ```c#
 // TODO 你要做的任务
@@ -59,7 +58,6 @@ sth.ToString().PadLeft(3, ' ');
 ```
 
 ## 04.过期代码警告与禁用CS0618<br>[Obsolete] & pragma warning disable 618
-### KeyPoint
 - **[Obsolete]** 受到这个Attribute标注的方法会引发CS0618,注意可以定义为警告或者错误
 
 - 禁用CS0618警告
@@ -67,4 +65,23 @@ sth.ToString().PadLeft(3, ' ');
 #pragma warning disable 618
             logger.WriteLine();
 #pragma warning restore 618
+```
+
+## 05.彩色的Debug输出
+
+- 插件依赖VsColorOutput（可能只有2019能在工具>扩展和更新>联机下面搜索到）
+![05.Vs Color Output](Figures/05.VsColorOutput.png)
+VS2015和VS2017版的下载地址
+https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOutput
+
+- 插件设置(工具>选项>VSColorOutput)
+![05.Vs Color Output Setting](Figures/05.VsColorOutput_Setting.png)
+![05.Vs Color Output Reg](Figures/05.VsColorOutput_Reg.png)
+
+- Debug输出语法
+```c#
+ Debug.WriteLine(" Debug ");
+ Debug.WriteLine(" Error ");
+ Debug.WriteLine(" Fatal ");
+ Debug.WriteLine(" Info ");
 ```

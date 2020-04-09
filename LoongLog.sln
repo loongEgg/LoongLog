@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28307.1022
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoongLog", "LoongLog\LoongLog.csproj", "{76618E89-2C3F-47B6-AADA-12B96624A6CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoongLogger", "LoongLogger\LoongLogger.csproj", "{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoongEgg.LoongLogger", "LoongEgg.LoongLogger\LoongEgg.LoongLogger.csproj", "{03EB036E-B9A2-4331-9DE0-67CF81C7EA5A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
