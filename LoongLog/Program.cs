@@ -1,5 +1,6 @@
 ﻿using LoongEgg.LoongLogger;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 
 namespace LoongLog
@@ -9,11 +10,14 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 06.
+            InterfaceForEachTest();
+
             // 05.
-            
+            //DebugOutputTest();
 
             // 02. 03
-            ConsoleLoggetTest();
+            //ConsoleLoggerTest();
 
             // 01.
             // ColorfullConsoleAndTimeFormat();
@@ -58,7 +62,7 @@ namespace LoongLog
         /// <summary>
         ///  03. 02. 代码
         /// </summary>
-        static void ConsoleLoggetTest() {
+        static void ConsoleLoggerTest() {
             ConsoleLogger logger = new ConsoleLogger();
             // TODO: 04-B 过期代码CS0618警告的禁用
 #pragma warning disable 0618
@@ -70,11 +74,44 @@ namespace LoongLog
         /// <summary>
         /// TODO: 05 彩色的Debug输出
         /// </summary>
-        static void DebugOutput() {
+        static void DebugOutputTest() {
             Debug.WriteLine(" Debug ");
             Debug.WriteLine(" Error ");
             Debug.WriteLine(" Fatal ");
             Debug.WriteLine(" Info ");
+        }
+
+        /// <summary>
+        /// TODO: 06.接口与Linq ForEach()
+        /// </summary>
+        static void InterfaceForEachTest() {
+            ConsoleLogger console = new ConsoleLogger();
+            DebugOutputLogger debug = new DebugOutputLogger();
+
+            // 不使用接口时
+            List<Object> loggers = new List<object>
+            {
+                console,
+                debug
+            };
+
+            loggers.ForEach(
+                log => 
+                {
+                    (log as ConsoleLogger)?.WriteLine(MessageType.Info, "一个新的消息");
+                    (log as DebugOutputLogger)?.WriteLine(MessageType.Info, "一个新的消息");                        
+                }
+            );
+
+            // 使用接口
+            List<ILogger> iloggers = new List<ILogger>
+            {
+                console,
+                debug
+            };
+
+            iloggers.ForEach(
+                log => log.WriteLine(MessageType.Info, "一个新的消息", "Method" , "file", 0));
         }
     }
 }

@@ -1,37 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
 
+/* 
+ | 个人微信：InnerGeeker
+ | 联系邮箱：LoongEgg@163.com 
+ | 创建时间：2020/4/9 20:03:16
+ | 主要用途：
+ | 更改记录：
+ |			 时间		版本		更改
+ */
 namespace LoongEgg.LoongLogger
 {
-    /* 
-	| WeChat: InnerGeek
-	| LoongEgg@163.com 
-	| https://github.com/loongEgg/LoongLog
-	*/
-
     /// <summary>
-    /// 控制台版的Logger
+    /// Debug版的Logger
     /// </summary>
-    public class ConsoleLogger : ILogger
-    { 
-        // TODO: 04-A 过期代码警告
-        [Obsolete("这是一个演示方法，不要乱用", false)]
-        // TODO: 02 获取调用方法名、调用文件名和调用代码所在行
-        public bool WriteLine(
-            [CallerMemberName] string callerName = null,
-            [CallerFilePath] string path = null,
-            [CallerLineNumber] int line = 0) {
-
-            string sth = $"{callerName} > {path} > {line}";
-            Console.WriteLine(sth);
-
-            // TODO: 03 任务列表、精简文件名、指定长度输出不足补空格
-            string msg = $"{Path.GetFileName(path)} > {callerName}() > in line [" + line.ToString().PadLeft(3, ' ') + "]";
-            Console.WriteLine(msg);
-            return true;
-        }
-
+    public class DebugOutputLogger : ILogger
+    {
         /// <summary>
         /// 打印一条新的消息
         /// </summary>
@@ -54,9 +44,9 @@ namespace LoongEgg.LoongLogger
                 + $"{Path.GetFileName(path)} > {callerName}() > in line [{line.ToString().PadLeft(3, ' ')}]: "
                 + message;
 
-            Console.WriteLine(msg);
+            Debug.WriteLine(msg);
+
             return true;
         }
-
     }
 }

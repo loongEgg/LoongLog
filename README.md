@@ -85,3 +85,111 @@ https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOut
  Debug.WriteLine(" Fatal ");
  Debug.WriteLine(" Info ");
 ```
+
+## 06.接口与Linq ForEach()
+>使用接口是为了更好的ForEach
+
+### 1）新建一个消息类型枚举
+```c#
+/// <summary>
+/// 日志消息类型定义
+/// </summary>
+public enum MessageType
+{
+    /// <summary>
+    /// 调试信息
+    /// </summary>
+    Debug,
+
+    /// <summary>
+    /// 一般信息
+    /// </summary>
+    Info,
+    
+    /// <summary>
+    /// 错误
+    /// </summary>
+    Error,
+
+    /// <summary>
+    /// 崩溃
+    /// </summary>
+    Fatal
+}
+```
+
+### 2）新建一个Debug版的Logger
+**注意枚举类型可以把枚举成员的名字转换成字符串的，可以有效避免魔幻数**
+```c#
+/// <summary>
+/// Debug版的Logger
+/// </summary>
+public class DebugOutputLogger
+{
+    /// <summary>
+    /// 打印一条新的消息
+    /// </summary>
+    ///     <param name="type">消息类型</param>
+    ///     <param name="message">消息内容</param>
+    ///     <param name="callerName">调用的方法的名字</param>
+    ///     <param name="path">调用方法所在的文件名</param>
+    ///     <param name="line">调用的代码所在行</param>
+    /// <returns>[true]->打印成功</returns>
+    public bool WriteLine(
+        MessageType type,
+        string message,
+        [CallerMemberName] string callerName = null,
+        [CallerFilePath] string path = null,
+        [CallerLineNumber] int line = 0) {
+
+        string msg =
+            DateTime.Now.ToString()
+            + $" [ {type.ToString()} ] -> "  
+            + $"{Path.GetFileName(path)} > {callerName}() > in line [{line.ToString().PadLeft(3, ' ')}]: "
+            + message;
+
+        Debug.WriteLine(msg);
+
+        return true;
+    }
+}
+```
+
+### 3）不使用接口时的迭代
+**注意那个运算符```?.```如果前面的表达式为null不会执行后面的命令
+```c#
+        /// <summary>
+        /// TODO: 06.接口与Linq ForEach()
+        /// </summary>
+        static void InterfaceForEachTest() {
+            ConsoleLogger console = new ConsoleLogger();
+            DebugOutputLogger debug = new DebugOutputLogger();
+
+            List<Object> loggers = new List<object>
+            {
+                console,
+                debug
+            };
+
+            loggers.ForEach(
+                log => 
+                {
+                    (log as ConsoleLogger)?.WriteLine(MessageType.Info, "一个新的消息");
+                    (log as DebugOutputLogger)?.WriteLine(MessageType.Info, "一个新的消息");                        
+                }
+            );
+        }
+```
+
+### 4）使用接口时的迭代
+```c#
+// 使用接口
+List<ILogger> iloggers = new List<ILogger>
+{
+    console,
+    debug
+};
+
+iloggers.ForEach(
+    log => log.WriteLine(MessageType.Info, "一个新的消息", "Method" , "file", 0));
+```
