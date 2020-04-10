@@ -69,5 +69,6 @@ namespace LoongEgg.LoongLogger
         ///     <param name="type">消息类型</param>
         /// <returns>[true]->打印成功</returns>
         public abstract bool WriteLine(string fullMessage, MessageType type);
+
     }
 }

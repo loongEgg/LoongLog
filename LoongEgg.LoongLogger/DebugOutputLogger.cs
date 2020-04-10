@@ -19,6 +19,7 @@ namespace LoongEgg.LoongLogger
     /// </summary>
     public class DebugOutputLogger : BaseLogger, ILogger
     {
+        [Obsolete]
         /// <summary>
         /// 打印一条新的消息
         /// </summary>

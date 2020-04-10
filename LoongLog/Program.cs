@@ -10,8 +10,11 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 08.
+            ConsoleLoggerCompleted();
+
             // 07.
-            DebugOutputLoggerCompleted();
+            //DebugOutputLoggerCompleted();
 
             // 06.
             //InterfaceForEachTest();
@@ -127,6 +130,18 @@ namespace LoongLog
             logger.WriteLine($" This is a {MessageType.Info} ...", MessageType.Info);
             logger.WriteLine($" This is a {MessageType.Error} ...", MessageType.Error);
             logger.WriteLine($" This is a {MessageType.Fatal} ...", MessageType.Fatal);
+        }
+
+        /// <summary>
+        /// TODO: 08-C 完整的ConsoleLogger的使用
+        /// </summary>
+        static void ConsoleLoggerCompleted() {
+            ConsoleLogger logger = new ConsoleLogger();
+
+            logger.WriteLine($"This is a Debug message", MessageType.Debug);
+            logger.WriteLine($"This is a Info message", MessageType.Info);
+            logger.WriteLine($"This is a Error message", MessageType.Error);
+            logger.WriteLine($"This is a Fatal message", MessageType.Fatal);
         }
     }
 }

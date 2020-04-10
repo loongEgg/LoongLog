@@ -13,7 +13,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// 控制台版的Logger
     /// </summary>
-    public class ConsoleLogger : ILogger
+    public class ConsoleLogger : BaseLogger, ILogger
     { 
         // TODO: 04-A 过期代码警告
         [Obsolete("这是一个演示方法，不要乱用", false)]
@@ -31,7 +31,7 @@ namespace LoongEgg.LoongLogger
             Console.WriteLine(msg);
             return true;
         }
-
+         
         /// <summary>
         /// 打印一条新的消息
         /// </summary>
@@ -58,5 +58,40 @@ namespace LoongEgg.LoongLogger
             return true;
         }
 
+        // TODO: 08-A 构造器
+        public ConsoleLogger(LoggerLevel level = LoggerLevel.Debug) : base(level) { }
+
+        // TODO: 08-B 实现抽象类BaseLogger的WriteLine()方法
+        /// <summary>
+        /// <see cref="BaseLogger.WriteLine(string, MessageType)"/>
+        /// </summary> 
+        public override bool WriteLine(string fullMessage, MessageType type) {
+            if ((int)type < (int)Level)
+                return false;
+
+            var oldColor = Console.ForegroundColor;
+
+            switch (type) {
+                case MessageType.Debug:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+
+                case MessageType.Info:
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    break;
+
+                case MessageType.Error:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+
+                case MessageType.Fatal:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break; 
+            }
+
+            Console.WriteLine(fullMessage);
+            Console.ForegroundColor = oldColor;
+            return true;
+        }
     }
 }

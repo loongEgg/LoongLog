@@ -361,3 +361,80 @@ BaseLogger主要提供的功能
         }
 ```
 ![07.Debug Output Logger](Figures/07.DebugOutputLogger.png)
+
+## 08.ConsoleLogger完结
+
+### 1）继承并实现BaseLogger
+```c#
+using System;
+using System.IO;
+using System.Runtime.CompilerServices;
+
+namespace LoongEgg.LoongLogger
+{
+    /* 
+	| WeChat: InnerGeek
+	| LoongEgg@163.com 
+	| https://github.com/loongEgg/LoongLog
+	*/
+
+    /// <summary>
+    /// 控制台版的Logger
+    /// </summary>
+    public class ConsoleLogger : BaseLogger, ILogger
+    { 
+        
+        // TODO: 08-A 构造器
+        public ConsoleLogger(LoggerLevel level = LoggerLevel.Debug) : base(level) { }
+
+        // TODO: 08-B 实现抽象类BaseLogger的WriteLine()方法
+        /// <summary>
+        /// <see cref="BaseLogger.WriteLine(string, MessageType)"/>
+        /// </summary> 
+        public override bool WriteLine(string fullMessage, MessageType type) {
+            if ((int)type < (int)Level)
+                return false;
+
+            var oldColor = Console.ForegroundColor;
+
+            switch (type) {
+                case MessageType.Debug:
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    break;
+
+                case MessageType.Info:
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                    break;
+
+                case MessageType.Error:
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    break;
+
+                case MessageType.Fatal:
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    break; 
+            }
+
+            Console.WriteLine(fullMessage);
+            Console.ForegroundColor = oldColor;
+            return true;
+        }
+    }
+}
+
+``` 
+
+### 2)使用ConsoleLogger
+```c#
+        /// <summary>
+        /// TODO: 08-C 完整的ConsoleLogger的使用
+        /// </summary>
+        static void ConsoleLoggerCompleted() {
+            ConsoleLogger logger = new ConsoleLogger();
+
+            logger.WriteLine($"This is a Debug message", MessageType.Debug);
+            logger.WriteLine($"This is a Info message", MessageType.Info);
+            logger.WriteLine($"This is a Error message", MessageType.Error);
+            logger.WriteLine($"This is a Fatal message", MessageType.Fatal);
+        }
+```
