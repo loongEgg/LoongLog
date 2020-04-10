@@ -41,9 +41,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseLogger.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="DebugOutputLogger.cs" />
     <Compile Include="ILogger.cs" />
+    <Compile Include="LoggerLevel.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

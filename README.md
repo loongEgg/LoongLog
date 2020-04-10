@@ -156,7 +156,7 @@ public class DebugOutputLogger
 ```
 
 ### 3）不使用接口时的迭代
-**注意那个运算符```?.```如果前面的表达式为null不会执行后面的命令
+**注意那个运算符```?.```如果前面的表达式为null不会执行后面的命令**
 ```c#
         /// <summary>
         /// TODO: 06.接口与Linq ForEach()
@@ -193,3 +193,171 @@ List<ILogger> iloggers = new List<ILogger>
 iloggers.ForEach(
     log => log.WriteLine(MessageType.Info, "一个新的消息", "Method" , "file", 0));
 ```
+---
+## 07.创建BaseLogger抽象基类和DebugOutputLogger的完成
+>可以取消各个Logger对ILogger接口的继承
+### KeyPoint
+- abstract修饰的类不可以被实例化
+- abstract修饰的方法基类只需要提供签名，子类必须实现
+
+### 1)创建Logger的级别定义LoggerLevel
+```c#
+    /// <summary>
+    ///     Logger的级别定义 
+    /// </summary>
+    /// <remarks>
+    ///     只有<seealso cref="MessageType"/> >= <seealso cref="LoggerLevel"/> 的时候新的消息才会被记录
+    /// </remarks>
+    public enum LoggerLevel
+    {
+       /// <summary>
+        /// 调试级
+        /// </summary>
+        Debug,
+
+        /// <summary>
+        /// 一般级
+        /// </summary>
+        Info,
+        
+        /// <summary>
+        /// 错误级
+        /// </summary>
+        Error,
+
+        /// <summary>
+        /// 崩溃级
+        /// </summary>
+        Fatal
+    }
+```
+
+### 2)创建BaseLogger
+BaseLogger主要提供的功能
+- Logger级别的属性
+- 默认构造器
+- proteced修饰的
+- 抽象的WriteLine()方法
+```c#
+    // TODO: 07-B BaseLogger
+    /// <summary>
+    /// 所有Logger的基类，提供了格式化输出log日志的基本方法
+    /// </summary>
+    public abstract class BaseLogger
+    {
+        /// <summary>
+        /// Logger的级别定义，默认为<see cref="LoggerLevel.Debug"/>
+        /// </summary>
+        public LoggerLevel Level { get; private set; } = LoggerLevel.Debug;
+
+        /// <summary>
+        /// 默认构造器
+        /// </summary>
+        public BaseLogger(LoggerLevel level) {
+            this.Level = level;
+        }
+
+        /// <summary>
+        /// 格式化并返回日志消息
+        /// </summary>
+        ///     <param name="type">消息类型</param>
+        ///     <param name="message">消息的具体内容</param>
+        ///     <param name="isDetailMode">详细模式？</param>
+        ///     <param name="callerName">调用方法的名字</param>
+        ///     <param name="file">调用的文件名</param>
+        ///     <param name="line">调用代码所在行</param>
+        /// <returns>格式化后的日志消息</returns>
+        public static string FormatMessage(
+            MessageType type,
+            string message,
+            bool isDetailMode,
+            string callerName,
+            string file,
+            int line) {
+
+            StringBuilder msg = new StringBuilder();
+            msg.Append(DateTime.Now.ToString() + " ");
+            msg.Append($"[ {type.ToString()} ] -> ");
+
+            if (isDetailMode)  
+                msg.Append($" {Path.GetFileName(file)} > {callerName}() > in line[{line}]: "); 
+
+            msg.Append(message); 
+            return msg.ToString();
+        }
+
+        /// <summary>
+        ///     让子类实现这个打印log的方法
+        /// </summary>
+        ///     <param name="fullMessage">完整的消息</param>
+        ///     <param name="type">消息类型</param>
+        /// <returns>[true]->打印成功</returns>
+        public abstract bool WriteLine(string fullMessage, MessageType type);
+    }
+```
+
+### 3)完成Debug版的logger
+```c#
+    /// <summary>
+    /// Debug版的Logger
+    /// </summary>
+    public class DebugOutputLogger : BaseLogger, ILogger
+    {
+        /// <summary>
+        /// 打印一条新的消息
+        /// </summary>
+        ///     <param name="type">消息类型</param>
+        ///     <param name="message">消息内容</param>
+        ///     <param name="callerName">调用的方法的名字</param>
+        ///     <param name="path">调用方法所在的文件名</param>
+        ///     <param name="line">调用的代码所在行</param>
+        /// <returns>[true]->打印成功</returns>
+        public bool WriteLine(
+            MessageType type,
+            string message,
+            [CallerMemberName] string callerName = null,
+            [CallerFilePath] string path = null,
+            [CallerLineNumber] int line = 0) {
+
+            string msg =
+                DateTime.Now.ToString()
+                + $" [ {type.ToString()} ] -> "  
+                + $"{Path.GetFileName(path)} > {callerName}() > in line [{line.ToString().PadLeft(3, ' ')}]: "
+                + message;
+
+            Debug.WriteLine(msg);
+
+            return true;
+        }
+
+        // TODO: 07-C Debug版的Logger的完成
+        /// <summary>
+        /// <see cref="BaseLogger.BaseLogger(LoggerLevel)"/>
+        /// </summary> 
+        public DebugOutputLogger(LoggerLevel level = LoggerLevel.Debug)  : base(level) { }
+
+        /// <summary>
+        /// <see cref="BaseLogger.WriteLine(string, MessageType)"/>
+        /// </summary> 
+        public override bool WriteLine(string fullMessage, MessageType type) {
+            Debug.WriteLine(fullMessage);
+            return true;
+        }
+    }
+```
+
+### 4)使用Debug版的Logger
+```c#
+        /// <summary>
+        /// TODO: 07-D 完整DebugOutputLogger的使用
+        /// </summary>
+        static void DebugOutputLoggerCompleted() {
+            DebugOutputLogger logger = new DebugOutputLogger();
+
+            logger.WriteLine($" This is a {MessageType.Debug} ...", MessageType.Debug);
+            logger.WriteLine($" This is a {MessageType.Info} ...", MessageType.Info);
+            logger.WriteLine($" This is a {MessageType.Error} ...", MessageType.Error);
+            logger.WriteLine($" This is a {MessageType.Fatal} ...", MessageType.Fatal);
+        }
+```
+![07.Debug Output Logger](Figures/07.DebugOutputLogger.png)

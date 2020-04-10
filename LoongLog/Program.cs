@@ -10,8 +10,11 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 07.
+            DebugOutputLoggerCompleted();
+
             // 06.
-            InterfaceForEachTest();
+            //InterfaceForEachTest();
 
             // 05.
             //DebugOutputTest();
@@ -82,7 +85,7 @@ namespace LoongLog
         }
 
         /// <summary>
-        /// TODO: 06.接口与Linq ForEach()
+        /// TODO: 06 接口与Linq ForEach()
         /// </summary>
         static void InterfaceForEachTest() {
             ConsoleLogger console = new ConsoleLogger();
@@ -112,6 +115,18 @@ namespace LoongLog
 
             iloggers.ForEach(
                 log => log.WriteLine(MessageType.Info, "一个新的消息", "Method" , "file", 0));
+        }
+
+        /// <summary>
+        /// TODO: 07-D 完整DebugOutputLogger的使用
+        /// </summary>
+        static void DebugOutputLoggerCompleted() {
+            DebugOutputLogger logger = new DebugOutputLogger();
+
+            logger.WriteLine($" This is a {MessageType.Debug} ...", MessageType.Debug);
+            logger.WriteLine($" This is a {MessageType.Info} ...", MessageType.Info);
+            logger.WriteLine($" This is a {MessageType.Error} ...", MessageType.Error);
+            logger.WriteLine($" This is a {MessageType.Fatal} ...", MessageType.Fatal);
         }
     }
 }
