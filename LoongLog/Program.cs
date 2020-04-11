@@ -10,8 +10,11 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 10.
+            FileLoggerTest();
+
             // 09.
-            LoggerManagerTest();
+            //LoggerManagerTest();
 
             // 08.
             //ConsoleLoggerCompleted();
@@ -153,6 +156,29 @@ namespace LoongLog
         static void LoggerManagerTest() {
 
             LoggerManager.Enable(LoggerType.Console | LoggerType.Debug , LoggerLevel.Debug);
+
+            LoggerManager.WriteDebug($"this is debug message {(int)LoggerType.Debug}");
+
+            LoggerManager.WriteInfor($"this is infor message {(int)LoggerType.Console}");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message "); 
+
+            LoggerManager.WriteError("this is error message");
+            LoggerManager.WriteFatal("this is fatal message");
+             
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message "); 
+
+            LoggerManager.Disable();
+        }
+
+
+        /// <summary>
+        /// TODO: 10-D FileLogger的使用
+        /// </summary>
+        static void FileLoggerTest() {
+
+            LoggerManager.Enable(LoggerType.Console | LoggerType.Debug | LoggerType.File, LoggerLevel.Debug);
 
             LoggerManager.WriteDebug($"this is debug message {(int)LoggerType.Debug}");
 

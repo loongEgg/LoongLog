@@ -44,11 +44,12 @@
     <Compile Include="BaseLogger.cs" />
     <Compile Include="ConsoleLogger.cs" />
     <Compile Include="DebugLogger.cs" />
-    <Compile Include="ILogger.cs" />
-    <Compile Include="LoggerLevel.cs" />
+    <Compile Include="comm\ILogger.cs" />
+    <Compile Include="comm\LoggerLevel.cs" />
+    <Compile Include="FileLogger.cs" />
     <Compile Include="LoggerManager.cs" />
-    <Compile Include="LoggerType.cs" />
-    <Compile Include="MessageType.cs" />
+    <Compile Include="comm\LoggerType.cs" />
+    <Compile Include="comm\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

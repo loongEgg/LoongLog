@@ -40,7 +40,7 @@ namespace LoongEgg.LoongLogger
                 Loggers.Add(new DebugLogger(level));
 
             if (type.HasFlag(LoggerType.File))
-                throw new NotImplementedException();
+                Loggers.Add(new FileLogger( level:level));
         }
 
         // TODO: 09-C 销毁Logger
