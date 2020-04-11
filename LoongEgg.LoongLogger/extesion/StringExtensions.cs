@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 /* 
  | 个人微信：InnerGeeker
@@ -14,11 +11,12 @@ using System.Threading.Tasks;
  */
 namespace LoongEgg.LoongLogger
 {
+
     /// <summary>
-    /// <see cref="string"/>的扩展方法
+    ///     TODO: 11 <see cref="string"/>的扩展方法
     /// </summary>
     /// <remarks>
-    /// https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
+    ///     https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
     /// </remarks>
     public static class StringExtensions
     {
@@ -30,24 +28,24 @@ namespace LoongEgg.LoongLogger
         /// <returns>
         ///     格式化后的字符串
         /// </returns>
-        public static string ToHeader(this string self, int width) {
+        
+            public static string ToHeader(this string self, int width) {
 
-            if (self.Length >= width) {
+            if(self.Length >= width) {
                 return self;
             }
             else {
+
                 StringBuilder msg = new StringBuilder(self);
+
+                // msg是奇数？
                 bool isOdd;
 
-                // 判断指定的长度为奇数？
-                isOdd = (width % 2 != 0);
-
-                // 把长度悄悄变为偶数
+                isOdd = (width % 2) != 0;
                 if (isOdd) width += 1;
 
-                // 判断原字符串的长度为奇数？
-                isOdd = (self.Length % 2 != 0);
                 int startCount;
+                isOdd = (self.Length % 2) != 0;
                 if (isOdd) {
                     startCount = (width - self.Length - 1) / 2;
                     msg.Append(" ");
@@ -62,7 +60,9 @@ namespace LoongEgg.LoongLogger
             }
         }
 
-         /// <summary>
+        
+
+        /// <summary>
         /// 把字符型两侧加上****直到指定的总长度
         /// </summary>
         ///     <param name="self">字符串本身</param>

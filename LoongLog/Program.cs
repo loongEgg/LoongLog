@@ -10,6 +10,10 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 11
+            //Console.WriteLine("Hello every one");
+            //Console.WriteLine("Hello every one".ToHeader(120));
+
             // 10.
             FileLoggerTest();
 
@@ -171,7 +175,6 @@ namespace LoongLog
 
             LoggerManager.Disable();
         }
-
 
         /// <summary>
         /// TODO: 10-D FileLogger的使用
