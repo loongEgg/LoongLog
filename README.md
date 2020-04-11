@@ -738,3 +738,144 @@ namespace LoongEgg.LoongLogger
             LoggerManager.Disable();
         }
 ```
+
+## 11.string的方法扩展
+官方资料 https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
+
+用来快速的生成Logger启动时整齐的版权信息（放心本项目并没有License）
+![11.String Method Extension](Figures/11.stringMethodExtension.png)
+
+### 1）使用方法
+
+#### 两端补全```* ```
+代码
+```c#
+" Good  Luck ".ToHeader(120)
+```
+
+输出
+```c#
+**************************************************** Good  Luck ******************************************************
+```
+
+#### 两端补空格再加```* ``` 
+代码
+```c#
+"Logger is CREATED by LoongLogger".ToContent(120)
+```
+
+ 输出
+
+```c#
+*                                         Logger is CREATED by LoongLogger                                           *
+```
+### 2）string扩展方法的实现
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+/* 
+ | 个人微信：InnerGeeker
+ | 联系邮箱：LoongEgg@163.com 
+ | 创建时间：2020/4/11 11:29:38
+ | 主要用途：
+ | 更改记录：
+ |			 时间		版本		更改
+ */
+namespace LoongEgg.LoongLogger
+{
+    /// <summary>
+    /// <see cref="string"/>的扩展方法
+    /// </summary>
+    /// <remarks>
+    /// https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/extension-methods
+    /// </remarks>
+    public static class StringExtensions
+    {
+        /// <summary>
+        /// 把字符两侧加上****直到指定的总长度
+        /// </summary>
+        ///     <param name="self">字符串本身</param>
+        ///     <param name="width">指定的总长度</param>
+        /// <returns>
+        ///     格式化后的字符串
+        /// </returns>
+        public static string ToHeader(this string self, int width) {
+
+            if (self.Length >= width) {
+                return self;
+            }
+            else {
+                StringBuilder msg = new StringBuilder(self);
+                bool isOdd;
+
+                // 判断指定的长度为奇数？
+                isOdd = (width % 2 != 0);
+
+                // 把长度悄悄变为偶数
+                if (isOdd) width += 1;
+
+                // 判断原字符串的长度为奇数？
+                isOdd = (self.Length % 2 != 0);
+                int startCount;
+                if (isOdd) {
+                    startCount = (width - self.Length - 1) / 2;
+                    msg.Append(" ");
+                }
+                else {
+                    startCount = (width - self.Length) / 2;
+                }
+
+                msg.Append('*', startCount);
+                msg.Append(Environment.NewLine);
+                return msg.ToString().PadLeft(width, '*');
+            }
+        }
+
+        /// <summary>
+        /// 把字符两侧加上空格和最外层的*直到指定的总长度
+        /// </summary>
+        ///     <param name="self">字符串本身</param>
+        ///     <param name="width">指定的总长度</param>
+        /// <returns>
+        ///     格式化后的字符串
+        /// </returns>
+        public static string ToContent(this string self, int width) {
+
+            if (self.Length >= width - 2) {
+                return self;
+            }
+            else {
+                StringBuilder msg = new StringBuilder(self);
+                bool isOdd;
+
+                // 判断指定的长度为奇数？
+                isOdd = (width % 2 != 0);
+
+                // 把长度悄悄变为偶数
+                if (isOdd) width += 1;
+
+                // 判断原字符串的长度为奇数？
+                isOdd = (self.Length % 2 != 0);
+                int spaceCount;
+                if (isOdd) {
+                    spaceCount = (width - self.Length - 1) / 2;
+                    msg.Append(" ");
+                }
+                else {
+                    spaceCount = (width - self.Length) / 2;
+                }
+
+                msg.Append(' ', spaceCount - 1);
+                msg.Append("*" + Environment.NewLine);
+                return "*" + msg.ToString().PadLeft(width - 1, ' ');
+            }
+        }
+
+    }
+}
+
+```

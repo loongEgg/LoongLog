@@ -51,6 +51,8 @@
     <Compile Include="comm\LoggerType.cs" />
     <Compile Include="comm\MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="extesion\StringExtensions.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

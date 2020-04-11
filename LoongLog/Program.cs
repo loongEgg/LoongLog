@@ -193,6 +193,9 @@ namespace LoongLog
             LoggerManager.WriteInfor($"this is infor message "); 
 
             LoggerManager.Disable();
+
+            LoggerManager.WriteError("Is Logger cleared?");
+            LoggerManager.WriteFatal("Is Logger cleared?");
         }
     }
 }

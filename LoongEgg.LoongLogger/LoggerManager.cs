@@ -41,6 +41,17 @@ namespace LoongEgg.LoongLogger
 
             if (type.HasFlag(LoggerType.File))
                 Loggers.Add(new FileLogger( level:level));
+
+            WriteInfor(
+                Environment.NewLine 
+                + "".ToHeader(120)  
+                + "  ".ToContent(120)
+                + "Logger is CREATED by LoongLogger".ToContent(120)
+                + "An OpenSource Project Released @ https://github.com/loongEgg/LoongLog".ToContent(120)
+                + "You can Contact ME by Wechat:InnerGeeker or Email:LoongEgg@163.com".ToContent(120)
+                + "  ".ToContent(120)
+                + "".ToHeader(120),  
+                false); 
         }
 
         // TODO: 09-C 销毁Logger
@@ -48,6 +59,16 @@ namespace LoongEgg.LoongLogger
         /// 销毁所有的Logger
         /// </summary>
         public static void Disable() {
+            WriteInfor(
+                Environment.NewLine 
+                + "".ToHeader(120)  
+                + "  ".ToContent(120)
+                + "Logger is CLEARED by LoongLogger".ToContent(120)
+                + "An OpenSource Project Released @ https://github.com/loongEgg/LoongLog".ToContent(120)
+                + "Thanks for Your Using!".ToContent(120)
+                + "  ".ToContent(120)
+                + " Good  Luck ".ToHeader(120),  
+                false); 
             Loggers.Clear();
         }
 
@@ -73,11 +94,12 @@ namespace LoongEgg.LoongLogger
             ) {
 
             string msg = BaseLogger.FormatMessage(type, message, isDetailMode, callerName, fileName, line);
-            bool isWrited = true;
+            bool isWrited = false;
 
-            if (Loggers.Any())
-                Loggers.ForEach( logger => isWrited &= logger.WriteLine(msg, type) );
-
+            if (Loggers.Any()) {
+                isWrited = true;
+                Loggers.ForEach(logger => isWrited &= logger.WriteLine(msg, type));
+            }
             return isWrited;
         }
 
