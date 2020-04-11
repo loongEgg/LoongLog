@@ -4,6 +4,44 @@ A log for c#/WPF with colorful output/console and file recorder.
 你可以在提交历史中看到每一步的实现.  
 You can learn every step in  history commit.
 
+---
+
+## 使用方法
+  1. 在ReleaseHistory文件夹下，下载编译好的程序```LoongEgg.LoongLogger.dll```
+https://github.com/loongEgg/LoongLog/tree/master/ReleaseHistory  
+  当然你也可以照着我写的攻略学习并重新编译一份, 就当你学习C#实践的第一个项目好了
+
+  2. 在你的程序中添加引用  
+ ![00.Reference](Figures/00.Reference.png)  
+  3. 在你程序的启动代码中激活日志记录
+```c#
+LoggerManager.Enable(
+    LoggerType.Console // 控制台Logger激活
+    | LoggerType.Debug // 调试输出Logger激活
+    | LoggerType.File, // 文件Logger输出激活，log文件在您程序的根目录/log/下
+    LoggerLevel.Debug);// 记录的log级别，目前有4个Debug < Infor < Error < Fatal
+```
+  4.在任意一个地方调用打印
+```c#
+            // 激活
+            LoggerManager.Enable(LoggerType.Console | LoggerType.Debug | LoggerType.File, LoggerLevel.Debug);
+
+            LoggerManager.WriteDebug($"This is DEBUG message");
+
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+
+            LoggerManager.WriteError("this is ERROR message");
+            LoggerManager.WriteFatal("this is FATAL message");
+             
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+
+            // 注销
+            LoggerManager.Disable();
+
+            LoggerManager.WriteError("Is Logger cleared?"); 
+```
 ## 使用效果
 ![00.Console Logger](Figures/00.ConsoleLogger.png)
 ![00.Debug Output](Figures/00.DebugOutput.png)

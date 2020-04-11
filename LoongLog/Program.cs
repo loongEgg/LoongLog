@@ -181,24 +181,24 @@ namespace LoongLog
         /// </summary>
         static void FileLoggerTest() {
 
+            // 激活
             LoggerManager.Enable(LoggerType.Console | LoggerType.Debug | LoggerType.File, LoggerLevel.Debug);
 
-            LoggerManager.WriteDebug($"this is debug message {(int)LoggerType.Debug}");
+            LoggerManager.WriteDebug($"This is DEBUG message");
 
-            LoggerManager.WriteInfor($"this is infor message {(int)LoggerType.Console}");
-            LoggerManager.WriteInfor($"this is infor message ");
-            LoggerManager.WriteInfor($"this is infor message "); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
 
-            LoggerManager.WriteError("this is error message");
-            LoggerManager.WriteFatal("this is fatal message");
+            LoggerManager.WriteError("this is ERROR message");
+            LoggerManager.WriteFatal("this is FATAL message");
              
-            LoggerManager.WriteInfor($"this is infor message ");
-            LoggerManager.WriteInfor($"this is infor message "); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
+            LoggerManager.WriteInfor($"This is INFORMATION message"); 
 
+            // 注销
             LoggerManager.Disable();
 
-            LoggerManager.WriteError("Is Logger cleared?");
-            LoggerManager.WriteFatal("Is Logger cleared?");
+            LoggerManager.WriteError("Is Logger cleared?"); 
         }
     }
 }
