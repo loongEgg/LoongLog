@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-/* 
+﻿/* 
  | 个人微信：InnerGeeker
  | 联系邮箱：LoongEgg@163.com 
  | 创建时间：2020/4/10 19:48:09
@@ -31,7 +25,7 @@ namespace LoongEgg.LoongLogger
         /// <summary>
         /// 一般级
         /// </summary>
-        Info,
+        Infor,
         
         /// <summary>
         /// 错误级

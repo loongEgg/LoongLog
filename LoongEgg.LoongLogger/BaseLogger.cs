@@ -40,7 +40,7 @@ namespace LoongEgg.LoongLogger
         ///     <param name="message">消息的具体内容</param>
         ///     <param name="isDetailMode">详细模式？</param>
         ///     <param name="callerName">调用方法的名字</param>
-        ///     <param name="file">调用的文件名</param>
+        ///     <param name="fileName">调用的文件名</param>
         ///     <param name="line">调用代码所在行</param>
         /// <returns>格式化后的日志消息</returns>
         public static string FormatMessage(
@@ -48,7 +48,7 @@ namespace LoongEgg.LoongLogger
             string message,
             bool isDetailMode,
             string callerName,
-            string file,
+            string fileName,
             int line) {
 
             StringBuilder msg = new StringBuilder();
@@ -56,7 +56,7 @@ namespace LoongEgg.LoongLogger
             msg.Append($"[ {type.ToString()} ] -> ");
 
             if (isDetailMode)  
-                msg.Append($" {Path.GetFileName(file)} > {callerName}() > in line[{line}]: "); 
+                msg.Append($" {Path.GetFileName(fileName)} > {callerName}() > in line[{line}]: "); 
 
             msg.Append(message); 
             return msg.ToString();

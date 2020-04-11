@@ -27,7 +27,7 @@ namespace LoongEgg.LoongLogger
         /// <summary>
         /// 一般信息
         /// </summary>
-        Info,
+        Infor,
         
         /// <summary>
         /// 错误

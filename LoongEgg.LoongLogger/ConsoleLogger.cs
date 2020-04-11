@@ -73,15 +73,15 @@ namespace LoongEgg.LoongLogger
 
             switch (type) {
                 case MessageType.Debug:
-                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
 
-                case MessageType.Info:
-                    Console.ForegroundColor = ConsoleColor.DarkCyan;
+                case MessageType.Infor:
+                    Console.ForegroundColor = ConsoleColor.DarkGray;
                     break;
 
                 case MessageType.Error:
-                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     break;
 
                 case MessageType.Fatal:

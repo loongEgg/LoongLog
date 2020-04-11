@@ -10,8 +10,11 @@ namespace LoongLog
         // https://github.com/loongEgg/LoongLog
         static void Main(string[] args) {
 
+            // 09.
+            LoggerManagerTest();
+
             // 08.
-            ConsoleLoggerCompleted();
+            //ConsoleLoggerCompleted();
 
             // 07.
             //DebugOutputLoggerCompleted();
@@ -92,7 +95,7 @@ namespace LoongLog
         /// </summary>
         static void InterfaceForEachTest() {
             ConsoleLogger console = new ConsoleLogger();
-            DebugOutputLogger debug = new DebugOutputLogger();
+            DebugLogger debug = new DebugLogger();
 
             // 不使用接口时
             List<Object> loggers = new List<object>
@@ -104,8 +107,8 @@ namespace LoongLog
             loggers.ForEach(
                 log => 
                 {
-                    (log as ConsoleLogger)?.WriteLine(MessageType.Info, "一个新的消息");
-                    (log as DebugOutputLogger)?.WriteLine(MessageType.Info, "一个新的消息");                        
+                    (log as ConsoleLogger)?.WriteLine(MessageType.Infor, "一个新的消息");
+                    (log as DebugLogger)?.WriteLine(MessageType.Infor, "一个新的消息");                        
                 }
             );
 
@@ -117,17 +120,17 @@ namespace LoongLog
             };
 
             iloggers.ForEach(
-                log => log.WriteLine(MessageType.Info, "一个新的消息", "Method" , "file", 0));
+                log => log.WriteLine(MessageType.Infor, "一个新的消息", "Method" , "file", 0));
         }
 
         /// <summary>
         /// TODO: 07-D 完整DebugOutputLogger的使用
         /// </summary>
         static void DebugOutputLoggerCompleted() {
-            DebugOutputLogger logger = new DebugOutputLogger();
+            DebugLogger logger = new DebugLogger();
 
             logger.WriteLine($" This is a {MessageType.Debug} ...", MessageType.Debug);
-            logger.WriteLine($" This is a {MessageType.Info} ...", MessageType.Info);
+            logger.WriteLine($" This is a {MessageType.Infor} ...", MessageType.Infor);
             logger.WriteLine($" This is a {MessageType.Error} ...", MessageType.Error);
             logger.WriteLine($" This is a {MessageType.Fatal} ...", MessageType.Fatal);
         }
@@ -139,9 +142,31 @@ namespace LoongLog
             ConsoleLogger logger = new ConsoleLogger();
 
             logger.WriteLine($"This is a Debug message", MessageType.Debug);
-            logger.WriteLine($"This is a Info message", MessageType.Info);
+            logger.WriteLine($"This is a Info message", MessageType.Infor);
             logger.WriteLine($"This is a Error message", MessageType.Error);
             logger.WriteLine($"This is a Fatal message", MessageType.Fatal);
+        }
+
+        /// <summary>
+        /// TODO: 09-E Logger调度器的使用
+        /// </summary>
+        static void LoggerManagerTest() {
+
+            LoggerManager.Enable(LoggerType.Console | LoggerType.Debug , LoggerLevel.Debug);
+
+            LoggerManager.WriteDebug($"this is debug message {(int)LoggerType.Debug}");
+
+            LoggerManager.WriteInfor($"this is infor message {(int)LoggerType.Console}");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message "); 
+
+            LoggerManager.WriteError("this is error message");
+            LoggerManager.WriteFatal("this is fatal message");
+             
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message "); 
+
+            LoggerManager.Disable();
         }
     }
 }

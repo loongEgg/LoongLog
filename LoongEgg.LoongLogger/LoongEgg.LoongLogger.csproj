@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="BaseLogger.cs" />
     <Compile Include="ConsoleLogger.cs" />
-    <Compile Include="DebugOutputLogger.cs" />
+    <Compile Include="DebugLogger.cs" />
     <Compile Include="ILogger.cs" />
     <Compile Include="LoggerLevel.cs" />
+    <Compile Include="LoggerManager.cs" />
+    <Compile Include="LoggerType.cs" />
     <Compile Include="MessageType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

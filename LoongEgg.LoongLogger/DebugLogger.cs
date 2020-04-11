@@ -17,7 +17,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// Debug版的Logger
     /// </summary>
-    public class DebugOutputLogger : BaseLogger, ILogger
+    public class DebugLogger : BaseLogger, ILogger
     {
         [Obsolete]
         /// <summary>
@@ -51,7 +51,7 @@ namespace LoongEgg.LoongLogger
         /// <summary>
         /// <see cref="BaseLogger.BaseLogger(LoggerLevel)"/>
         /// </summary> 
-        public DebugOutputLogger(LoggerLevel level = LoggerLevel.Debug)  : base(level) { }
+        public DebugLogger(LoggerLevel level = LoggerLevel.Debug)  : base(level) { }
 
         /// <summary>
         /// <see cref="BaseLogger.WriteLine(string, MessageType)"/>

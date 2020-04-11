@@ -1,8 +1,13 @@
-# LoongLog
+# LoongLog   
 一个可以在控制台（彩色）、输出（彩色）、文件同时记录的Log日志。   
 A log for c#/WPF with colorful output/console and file recorder.   
 你可以在提交历史中看到每一步的实现.  
 You can learn every step in  history commit.
+
+## 使用效果
+![00.Console Logger](Figures/00.ConsoleLogger.png)
+![00.Debug Output](Figures/00.DebugOutput.png)
+---
 ## 01.控制台的彩色输出和时间格式化<br>Colorfull Console And Time Format
 
 - Colorfull Console
@@ -20,7 +25,7 @@ Console.WriteLine($"Normal format: {time.ToString()}");
 // 时间的格式化
 Console.WriteLine($"Format string: {time.ToString("yyyy-MM-dd hh-mm-ss")}");
 ```
-
+---
 ## 02.获取调用者的文件名、方法名和代码所在行<br>Get [CallerMemberName]/[CallerFilePath]/[CallerLineNumber]
 ### KeyPoints
 - Using
@@ -37,6 +42,7 @@ public virtual bool WriteLine(
       [CallerFilePath] string callerFile = null,
       [CallerLineNumber] int codeLine = 0)
 ```
+---
 ## 03.任务列表、精简文件名<br>ToDO List & Trimmed File Name
 - ToDo List（任务列表）
 ```c#
@@ -57,6 +63,7 @@ Path.GetFileName(fullLongLongPath);
 sth.ToString().PadLeft(3, ' ');
 ```
 
+---
 ## 04.过期代码警告与禁用CS0618<br>[Obsolete] & pragma warning disable 618
 - **[Obsolete]** 受到这个Attribute标注的方法会引发CS0618,注意可以定义为警告或者错误
 
@@ -66,7 +73,7 @@ sth.ToString().PadLeft(3, ' ');
             logger.WriteLine();
 #pragma warning restore 618
 ```
-
+---
 ## 05.彩色的Debug输出
 
 - 插件依赖VsColorOutput（可能只有2019能在工具>扩展和更新>联机下面搜索到）
@@ -86,6 +93,7 @@ https://marketplace.visualstudio.com/items?itemName=MikeWard-AnnArbor.VSColorOut
  Debug.WriteLine(" Info ");
 ```
 
+---
 ## 06.接口与Linq ForEach()
 >使用接口是为了更好的ForEach
 
@@ -362,6 +370,7 @@ BaseLogger主要提供的功能
 ```
 ![07.Debug Output Logger](Figures/07.DebugOutputLogger.png)
 
+---
 ## 08.ConsoleLogger完结
 
 ### 1）继承并实现BaseLogger
@@ -436,5 +445,195 @@ namespace LoongEgg.LoongLogger
             logger.WriteLine($"This is a Info message", MessageType.Info);
             logger.WriteLine($"This is a Error message", MessageType.Error);
             logger.WriteLine($"This is a Fatal message", MessageType.Fatal);
+        }
+```
+---
+## 09.Logger调度管理器
+### 1）生成Logger类型枚举
+**注意这个[Flags]**
+```c#
+    // TODO: 09-A
+    /// <summary>
+    /// Logger实例的类型 
+    /// </summary>
+    /// <remarks>
+    ///     // 注意加了[Flags]可以将枚举视为位域（即可以用 | 来OR运算）
+    ///     // 示例代码使用的是16进制
+    ///     LoggerType.Debug | LoggerType.Console // 表示 0x0001 | 0x0010 = 0x0011 (同时使能Debug和Console版的Logger)
+    /// </remarks>
+    [Flags]
+    public enum LoggerType
+    {
+         Debug  = 0x0001, // 或者使用1， 即二进制的0001
+
+         Console= 0x0010, // 或者使用2， 即二进制的0010
+
+         File   = 0x0100  // 或者使用4， 即二进制的0100
+    }
+```
+### 3) LoggerManager的实现
+```c#
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.CompilerServices;
+
+/* 
+ | 个人微信：InnerGeeker
+ | 联系邮箱：LoongEgg@163.com 
+ | 创建时间：2020/4/10 23:37:38
+ | 主要用途：
+ | 更改记录：
+ |			 时间		版本		更改
+ */
+namespace LoongEgg.LoongLogger
+{
+    /// <summary>
+    /// Logger调度器
+    /// </summary>
+    public static class LoggerManager
+    {
+        static List<BaseLogger> Loggers = new List<BaseLogger>();
+
+        // TODO: 09-B 注册Logger
+        /// <summary>
+        /// 使能各个Logger
+        /// </summary>
+        /// <param name="type">需要开启的Logger类型，可以使用“|”位域操作</param>
+        /// <param name="level">开启的Logger的级别</param>
+        /// <example>
+        ///     // 开启调试输出和控制台的Logger，消息级别为Error
+        ///     LoggerManager.Enable(LoggerType.Debug | LoggerType.Console,  LoggerLevel.Error);
+        /// </example>
+        public static void Enable(LoggerType type, LoggerLevel level = LoggerLevel.Debug) {
+            Loggers.Clear();
+
+            if (type.HasFlag(LoggerType.Console))
+                Loggers.Add(new ConsoleLogger(level));
+
+            if (type.HasFlag(LoggerType.Debug))
+                Loggers.Add(new DebugLogger(level));
+
+            if (type.HasFlag(LoggerType.File))
+                throw new NotImplementedException();
+        }
+
+        // TODO: 09-C 销毁Logger
+        /// <summary>
+        /// 销毁所有的Logger
+        /// </summary>
+        public static void Disable() {
+            Loggers.Clear();
+        }
+
+        // TODO: 09-D 打印日志 WriteDebug, WriteInfo, WriteError, WriteFatal
+        /// <summary>
+        /// 打印一条新的日志消息
+        /// </summary>
+        ///     <param name="type">消息类型</param>
+        ///     <param name="message">消息的具体内容</param>
+        ///     <param name="isDetailMode">详细模式？</param>
+        ///     <param name="callerName">调用的方法的名字</param>
+        ///     <param name="fileName">调用方法所在的文件名</param>
+        ///     <param name="line">调用代码所在行</param>
+        /// <returns>[true]->打印成功</returns>
+        private static bool WriteLine
+            (
+                MessageType type,
+                string message,
+                bool isDetailMode,
+                string callerName,
+                string fileName,
+                int line
+            ) {
+
+            string msg = BaseLogger.FormatMessage(type, message, isDetailMode, callerName, fileName, line);
+            bool isWrited = true;
+
+            if (Loggers.Any())
+                Loggers.ForEach( logger => isWrited &= logger.WriteLine(msg, type) );
+
+            return isWrited;
+        }
+
+        public static bool WriteDebug
+            (
+                string message,
+                bool isDetailMode = true,
+                [CallerMemberName] string callerName = null,
+                [CallerFilePath] string fileName = null,
+                [CallerLineNumber]int line = 0
+            )       => WriteLine(MessageType.Debug, message, isDetailMode, callerName, fileName, line);
+
+        public static bool WriteInfor
+            (
+                string message,
+                bool isDetailMode = true,
+                [CallerMemberName] string callerName = null,
+                [CallerFilePath] string fileName = null,
+                [CallerLineNumber]int line = 0
+            )       => WriteLine(MessageType.Infor, message, isDetailMode, callerName, fileName, line);
+
+        public static bool WriteError
+            (
+                string message,
+                bool isDetailMode = true,
+                [CallerMemberName] string callerName = null,
+                [CallerFilePath] string fileName = null,
+                [CallerLineNumber]int line = 0
+            )       => WriteLine(MessageType.Error, message, isDetailMode, callerName, fileName, line);
+
+         public static bool WriteFatal
+            (
+                string message,
+                bool isDetailMode = true,
+                [CallerMemberName] string callerName = null,
+                [CallerFilePath] string fileName = null,
+                [CallerLineNumber]int line = 0
+             )      => WriteLine(MessageType.Fatal, message, isDetailMode, callerName, fileName, line);
+
+    }
+}
+
+```
+### 3)使用方法
+```c#
+        /// <summary>
+        /// TODO: 09-E Logger调度器的使用
+        /// </summary>
+        static void LoggerManagerTest() {
+
+            LoggerManager.Enable(LoggerType.Console | LoggerType.Debug , LoggerLevel.Debug);
+
+            LoggerManager.WriteDebug($"this is debug message {(int)LoggerType.Debug}");
+
+            LoggerManager.WriteInfor($"this is infor message {(int)LoggerType.Console}");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+
+            LoggerManager.WriteError("this is error message");
+            LoggerManager.WriteFatal("this is fatal message");
+
+
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+            LoggerManager.WriteInfor($"this is infor message ");
+
+            LoggerManager.Disable();
         }
 ```
