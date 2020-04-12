@@ -38,7 +38,7 @@ namespace LoongEgg.LoongLogger
                     Directory.CreateDirectory(root + @"/log/");
                 }
 
-                this.FilePath = root + @"/log/" + DateTime.Now.ToString("yyyy-MM-dd hh-mm-ss") + ".log";
+                this.FilePath = root + @"/log/" + DateTime.Now.ToString("yyyy-MM-dd HH-mm-ss") + ".log";
             }
             else {
                 this.FilePath = filePath;       
