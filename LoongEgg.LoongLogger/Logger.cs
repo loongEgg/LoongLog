@@ -16,7 +16,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// Logger调度器
     /// </summary>
-    public static class LoggerManager
+    public static class Logger
     {
         static List<BaseLogger> Loggers = new List<BaseLogger>();
 

@@ -47,9 +47,9 @@
     <Compile Include="comm\ILogger.cs" />
     <Compile Include="comm\LoggerLevel.cs" />
     <Compile Include="FileLogger.cs" />
-    <Compile Include="LoggerManager.cs" />
     <Compile Include="comm\LoggerType.cs" />
     <Compile Include="comm\MessageType.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="extesion\StringExtensions.cs" />
   </ItemGroup>

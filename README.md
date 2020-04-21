@@ -4,9 +4,29 @@ A log for c#/WPF with colorful output/console and file recorder.
 你可以在提交历史中看到每一步的实现.  
 You can learn every step in  history commit.
 
+# 重要更新(2020-04-21)
+
+后面的演示方法已经被清理，你需要回到在2020-04-12之前的commit才可以找到演示代码
+
+## 使用方法（当前）
+```c#
+            // 激活Logger
+            Logger.Enable(LoggerType.Console | LoggerType.Debug | LoggerType.File, LoggerLevel.Debug);
+
+
+            Logger.WriteDebug("this is a debug ...");
+            Logger.WriteInfor("this is a infor ...");
+
+            Logger.WriteError("this is a error ...");
+            Logger.WriteFatal("this is a fatal ...");
+
+            // 注销logger
+            Logger.Disable();
+
+```
 ---
 
-## 使用方法
+## 使用方法（过时）
   1. 在ReleaseHistory文件夹下，下载编译好的程序```LoongEgg.LoongLogger.dll```
 https://github.com/loongEgg/LoongLog/tree/master/ReleaseHistory  
   当然你也可以照着我写的攻略学习并重新编译一份, 就当你学习C#实践的第一个项目好了

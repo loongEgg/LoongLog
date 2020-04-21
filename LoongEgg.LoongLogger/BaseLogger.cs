@@ -19,7 +19,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// 所有Logger的基类，提供了格式化输出log日志的基本方法
     /// </summary>
-    public abstract class BaseLogger
+    internal abstract class BaseLogger
     {
         /// <summary>
         /// Logger的级别定义，默认为<see cref="LoggerLevel.Debug"/>

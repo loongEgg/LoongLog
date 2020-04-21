@@ -17,7 +17,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// Debug版的Logger
     /// </summary>
-    public class DebugLogger : BaseLogger, ILogger
+    internal class DebugLogger : BaseLogger, ILogger
     {
         [Obsolete]
         /// <summary>

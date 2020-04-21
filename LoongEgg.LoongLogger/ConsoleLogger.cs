@@ -13,7 +13,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// 控制台版的Logger
     /// </summary>
-    public class ConsoleLogger : BaseLogger, ILogger
+    internal class ConsoleLogger : BaseLogger, ILogger
     { 
         // TODO: 04-A 过期代码警告
         [Obsolete("这是一个演示方法，不要乱用", false)]
@@ -77,7 +77,7 @@ namespace LoongEgg.LoongLogger
                     break;
 
                 case MessageType.Infor:
-                    Console.ForegroundColor = ConsoleColor.DarkGray;
+                    Console.ForegroundColor = ConsoleColor.DarkCyan;
                     break;
 
                 case MessageType.Error:

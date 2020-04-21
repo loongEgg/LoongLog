@@ -14,7 +14,7 @@ namespace LoongEgg.LoongLogger
     /// <summary>
     /// File版的<see cref="BaseLogger"/>
     /// </summary>
-    public class FileLogger : BaseLogger
+    internal class FileLogger : BaseLogger
     { 
         /*-------------------------------------- Properties -------------------------------------*/
         // Logger文件所在的路径
