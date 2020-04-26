@@ -22,10 +22,19 @@ namespace LoongEgg.LoongLogger
     [Flags]
     public enum LoggerType
     {
-         Debug  = 0x0001, // 或者使用1， 即二进制的0001
+        /// <summary>
+        /// 调试版
+        /// </summary>
+        Debug = 0x0001, // 或者使用1， 即二进制的0001
 
-         Console= 0x0010, // 或者使用2， 即二进制的0010
+        /// <summary>
+        /// 控制台版
+        /// </summary>
+        Console = 0x0010, // 或者使用2， 即二进制的0010
 
-         File   = 0x0100  // 或者使用4， 即二进制的0100
+        /// <summary>
+        /// 文件版
+        /// </summary>
+        File = 0x0100  // 或者使用4， 即二进制的0100
     }
 }

@@ -79,7 +79,7 @@ namespace LoongEgg.LoongLogger
                 case MessageType.Infor:
                     Console.ForegroundColor = ConsoleColor.DarkCyan;
                     break;
-
+                     
                 case MessageType.Error:
                     Console.ForegroundColor = ConsoleColor.DarkYellow;
                     break;

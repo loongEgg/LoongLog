@@ -56,7 +56,7 @@ namespace LoongEgg.LoongLogger
             msg.Append($"[ {type.ToString()} ] -> ");
 
             if (isDetailMode)  
-                msg.Append($" {Path.GetFileName(fileName)} > {callerName}() > in line[{line}]: "); 
+                msg.Append($"{Path.GetFileName(fileName)} > {callerName}() > in line[{line.ToString().PadLeft(3, ' ')}]: "); 
 
             msg.Append(message); 
             return msg.ToString();

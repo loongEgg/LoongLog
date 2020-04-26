@@ -22,21 +22,26 @@ namespace LoongEgg.LoongLogger
         /// <summary>
         /// 调试信息
         /// </summary>
-        Debug,
+        Debug = 0,
 
         /// <summary>
         /// 一般信息
         /// </summary>
-        Infor,
+        Infor = 1,
         
+        /// <summary>
+        /// 关键信息
+        /// </summary>
+        Crtcl = 2,
+
         /// <summary>
         /// 错误
         /// </summary>
-        Error,
-
+        Error = 2,
+         
         /// <summary>
         /// 崩溃
         /// </summary>
-        Fatal
+        Fatal = 3
     }
 }

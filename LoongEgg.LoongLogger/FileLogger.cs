@@ -8,6 +8,7 @@ using System.IO;
  | 主要用途：
  | 更改记录：
  |			 时间		版本		更改
+ |      2020-04-11              增加线程锁
  */
 namespace LoongEgg.LoongLogger
 {
@@ -46,19 +47,22 @@ namespace LoongEgg.LoongLogger
 
             // TODO: 10-C 创建log文件
             using (StreamWriter writer = new StreamWriter(this.FilePath)) {
-                writer.WriteLineAsync(BaseLogger.FormatMessage(MessageType.Infor, "Logger File is Created...", true, nameof(FileLogger), "Created by Constructor", 46));
+                //writer.WriteLineAsync(BaseLogger.FormatMessage(MessageType.Infor, "Logger File is Created...", true, nameof(FileLogger), "Created by Constructor", 46));
             }
         }
+         
+        private static readonly object _Lock = new object();
 
         /*------------------------------------ Public Methods -----------------------------------*/
         /// <summary>
         /// <see cref="BaseLogger.WriteLine(string, MessageType)"/>
         /// </summary> 
         public override bool WriteLine(string fullMessage, MessageType type) {
-
-            using (StreamWriter writer = new StreamWriter(this.FilePath, true)) {
-                writer.WriteLineAsync(fullMessage);
-            }
+            // TODO: [Update] 2020-04-26 加了线程锁
+            lock (_Lock)
+                using (StreamWriter writer = new StreamWriter(this.FilePath, true)) {
+                    writer.WriteLineAsync(fullMessage);
+                }
 
             return true;
         }
